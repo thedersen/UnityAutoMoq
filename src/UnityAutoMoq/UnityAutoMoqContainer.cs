@@ -6,7 +6,7 @@ using Moq;
 
 namespace UnityAutoMoq
 {
-    public class UnityAutoMoqContainer : UnityContainer, IMoqContainer
+    public class UnityAutoMoqContainer : UnityContainer
     {
         public UnityAutoMoqContainer()
         {
@@ -24,47 +24,29 @@ namespace UnityAutoMoq
             return GetOrCreateMockedInstance(t);
         }
 
-        public AsExpression As<T>()
-        {
-            return new AsExpression(typeof(T), this);
-        }
-
         public Mock<T> GetMock<T>() where T : class
         {
-            return GetMock<T>(null);
-        }
+            var instanse = (T)GetOrCreateMockedInstance(typeof (T));
 
-        public Mock<T> GetMock<T>(params Type[] implements) where T : class
-        {
-            var instance = (T)GetOrCreateMockedInstance(typeof (T), implements);
-
-            return Mock.Get(instance);
+            return Mock.Get(instanse);
         }
 
         private object GetOrCreateMockedInstance(Type t)
         {
-            return GetOrCreateMockedInstance(t, null);
-        }
-
-        private object GetOrCreateMockedInstance(Type t, params Type[] implements)
-        {
             var instance = TryResolve(t, null);
             if (instance == null)
             {
-                instance = CreateMockedInstance(t, implements);
+                instance = CreateMockedInstance(t);
                 RegisterInstance(t, instance);
             }
             return instance;
         }
 
-        private object CreateMockedInstance(Type t, params Type[] implements)
+        private object CreateMockedInstance(Type t)
         {
             Type genericType = typeof (Mock<>).MakeGenericType(new[] {t});
 
             object instance = Activator.CreateInstance(genericType);
-
-            if(implements != null)
-                implements.Each(type => genericType.GetMethod("As").MakeGenericMethod(type).Invoke(instance, null));
 
             genericType.InvokeMember("DefaultValue", BindingFlags.SetProperty, null, instance, new object[] {DefaultValue});
             
