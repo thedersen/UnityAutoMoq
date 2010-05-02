@@ -1,4 +1,4 @@
-using System;
+using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Moq;
 using NUnit.Framework.SyntaxHelpers;
@@ -51,12 +51,21 @@ namespace UnityAutoMoq.Test
         }
 
         [Test]
-        public void Should_apply_default_value_when_creating_mocks()
+        public void Should_apply_default_default_value_when_none_specified()
         {
-            container.DefaultValue = DefaultValue.Mock;
+            container = new UnityAutoMoqContainer();
             var mocked = container.GetMock<IService>();
 
             Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Mock));
+        }
+
+        [Test]
+        public void Should_apply_specified_default_value_when_specified()
+        {
+            container = new UnityAutoMoqContainer(DefaultValue.Empty);
+            var mocked = container.GetMock<IService>();
+
+            Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Empty));
         }
 
         [Test]
@@ -75,23 +84,6 @@ namespace UnityAutoMoq.Test
             Mock<IAnotherService> mock = container.GetMock<IAnotherService>();
 
             Assert.That(concrete.AnotherService, Is.SameAs(mock.Object));
-        }
-
-        [Test]
-        public void Can_add_one_interface_implementation_when_getting_mock()
-        {
-            Mock<IService> mock = container.As<IDisposable>().GetMock<IService>();
-
-            Assert.That(mock.As<IDisposable>().Object, Is.Not.Null);
-        }
-
-        [Test]
-        public void Can_add_several_interface_implementations_when_getting_mock()
-        {
-            Mock<IService> mock = container.As<IDisposable>().And<IAnotherService>().GetMock<IService>();
-
-            Assert.That(mock.As<IDisposable>().Object, Is.Not.Null);
-            Assert.That(mock.As<IAnotherService>().Object, Is.Not.Null);
         }
     }
 }

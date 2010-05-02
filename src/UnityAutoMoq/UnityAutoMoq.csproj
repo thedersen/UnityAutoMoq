@@ -75,7 +75,9 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IMoqContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnityAutoMoqBuilderStrategy.cs" />
     <Compile Include="UnityAutoMoqContainer.cs" />
+    <Compile Include="UnityAutoMoqExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

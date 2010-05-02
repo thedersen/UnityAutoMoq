@@ -23,7 +23,7 @@ namespace UnityAutoMoq
 
         public Mock<T> GetMock<T>() where T : class
         {
-            return unityAutoMoqContainer.GetMock<T>(implements.ToArray());
+            return unityAutoMoqContainer.GetMock<T>();
         }
     }
 }
