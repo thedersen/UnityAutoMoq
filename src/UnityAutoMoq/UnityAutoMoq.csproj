@@ -73,7 +73,6 @@
   <ItemGroup>
     <Compile Include="AsExpression.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="IMoqContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityAutoMoqBuilderStrategy.cs" />
     <Compile Include="UnityAutoMoqContainer.cs" />

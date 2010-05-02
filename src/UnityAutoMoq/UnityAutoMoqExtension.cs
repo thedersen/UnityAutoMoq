@@ -8,12 +8,12 @@ namespace UnityAutoMoq
 {
     public class UnityAutoMoqExtension : UnityContainerExtension
     {
+        private readonly UnityAutoMoqContainer autoMoqContainer;
         private readonly IList<Type> registeredTypes = new List<Type>();
-        private readonly DefaultValue defaultValue;
 
-        public UnityAutoMoqExtension(DefaultValue defaultValue)
+        public UnityAutoMoqExtension(UnityAutoMoqContainer autoMoqContainer)
         {
-            this.defaultValue = defaultValue;
+            this.autoMoqContainer = autoMoqContainer;
         }
 
         protected override void Initialize()
@@ -36,7 +36,7 @@ namespace UnityAutoMoq
 
         private void GenerateMocksForUnregisteredInterfaces()
         {
-            Context.Strategies.Add(new UnityAutoMoqBuilderStrategy(registeredTypes, defaultValue), UnityBuildStage.PreCreation);
+            Context.Strategies.Add(new UnityAutoMoqBuilderStrategy(registeredTypes, autoMoqContainer), UnityBuildStage.PreCreation);
         }
     }
 }

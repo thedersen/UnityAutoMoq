@@ -10,13 +10,13 @@ namespace UnityAutoMoq
     public class UnityAutoMoqBuilderStrategy : BuilderStrategy
     {
         private readonly IEnumerable<Type> registeredTypes;
+        private readonly UnityAutoMoqContainer autoMoqContainer;
         private readonly Dictionary<Type, object> mocks;
-        private readonly DefaultValue defaultValue;
 
-        public UnityAutoMoqBuilderStrategy(IEnumerable<Type> registeredTypes, DefaultValue defaultValue)
+        public UnityAutoMoqBuilderStrategy(IEnumerable<Type> registeredTypes, UnityAutoMoqContainer autoMoqContainer)
         {
             this.registeredTypes = registeredTypes;
-            this.defaultValue = defaultValue;
+            this.autoMoqContainer = autoMoqContainer;
             mocks = new Dictionary<Type, object>();
         }
 
@@ -44,7 +44,11 @@ namespace UnityAutoMoq
 
             object mock = Activator.CreateInstance(genericType);
 
-            genericType.InvokeMember("DefaultValue", BindingFlags.SetProperty, null, mock, new object[] { defaultValue });
+            AsExpression interfaceImplementations = autoMoqContainer.GetInterfaceImplementations(t);
+            if(interfaceImplementations != null)
+                interfaceImplementations.GetImplementations().Each(type => genericType.GetMethod("As").MakeGenericMethod(type).Invoke(mock, null));
+
+            genericType.InvokeMember("DefaultValue", BindingFlags.SetProperty, null, mock, new object[] { autoMoqContainer.DefaultValue });
 
             object mockedInstance = genericType.InvokeMember("Object", BindingFlags.GetProperty, null, mock, null);
             mocks.Add(t, mockedInstance);

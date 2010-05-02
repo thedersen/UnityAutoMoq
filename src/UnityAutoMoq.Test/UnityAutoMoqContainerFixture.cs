@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Moq;
@@ -69,6 +70,15 @@ namespace UnityAutoMoq.Test
         }
 
         [Test]
+        public void Should_apply_specified_default_value_when_specified_2()
+        {
+            container = new UnityAutoMoqContainer{DefaultValue = DefaultValue.Empty};
+            var mocked = container.GetMock<IService>();
+
+            Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Empty));
+        }
+
+        [Test]
         public void Can_resolve_concrete_type_with_dependency()
         {
             var concrete = container.Resolve<Service>();
@@ -84,6 +94,23 @@ namespace UnityAutoMoq.Test
             Mock<IAnotherService> mock = container.GetMock<IAnotherService>();
 
             Assert.That(concrete.AnotherService, Is.SameAs(mock.Object));
+        }
+
+        [Test]
+        public void Can_configure_mock_as_several_interfaces()
+        {
+            container.ConfigureMock<IService>().As<IDisposable>();
+
+            container.GetMock<IService>().As<IDisposable>();
+        }
+
+        [Test]
+        public void Can_configure_mock_as_several_interfaces_2()
+        {
+            container.ConfigureMock<IService>().As<IDisposable>().As<IAnotherService>();
+
+            container.GetMock<IService>().As<IDisposable>();
+            container.GetMock<IService>().As<IAnotherService>();
         }
     }
 }
