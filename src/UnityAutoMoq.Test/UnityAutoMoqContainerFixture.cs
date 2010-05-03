@@ -112,5 +112,13 @@ namespace UnityAutoMoq.Test
             container.GetMock<IService>().As<IDisposable>();
             container.GetMock<IService>().As<IAnotherService>();
         }
+
+        [Test]
+        public void Can_lazy_load_dependencies()
+        {
+            var service = container.Resolve<LazyService>();
+
+            Assert.That(service.ServiceFunc(), Is.InstanceOfType(typeof(IService)));
+        }
     }
 }
