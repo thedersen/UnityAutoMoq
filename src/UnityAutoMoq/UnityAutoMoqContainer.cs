@@ -24,9 +24,14 @@ namespace UnityAutoMoq
 
         public DefaultValue DefaultValue { get; set; }
 
+        public T Resolve<T>()
+        {
+            return (T)Resolve(typeof(T), null);
+        }
+
         public Mock<T> GetMock<T>() where T : class
         {
-            return Mock.Get(this.Resolve<T>());
+            return Mock.Get(Resolve<T>());
         }
 
         public AsExpression ConfigureMock<T>()
@@ -38,10 +43,7 @@ namespace UnityAutoMoq
 
         internal AsExpression GetInterfaceImplementations(Type t)
         {
-            if(asExpressions.ContainsKey(t))
-                return asExpressions[t];
-
-            return null;
+            return asExpressions.ContainsKey(t) ? asExpressions[t] : null;
         }
     }
 }

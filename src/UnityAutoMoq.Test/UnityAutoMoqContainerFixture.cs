@@ -1,5 +1,4 @@
 using System;
-using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Moq;
 using NUnit.Framework.SyntaxHelpers;
