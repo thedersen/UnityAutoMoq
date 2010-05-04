@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.ObjectBuilder2;
 using Moq;
@@ -9,13 +8,11 @@ namespace UnityAutoMoq
 {
     public class UnityAutoMoqBuilderStrategy : BuilderStrategy
     {
-        private readonly IEnumerable<Type> registeredTypes;
         private readonly UnityAutoMoqContainer autoMoqContainer;
         private readonly Dictionary<Type, object> mocks;
 
-        public UnityAutoMoqBuilderStrategy(IEnumerable<Type> registeredTypes, UnityAutoMoqContainer autoMoqContainer)
+        public UnityAutoMoqBuilderStrategy(UnityAutoMoqContainer autoMoqContainer)
         {
-            this.registeredTypes = registeredTypes;
             this.autoMoqContainer = autoMoqContainer;
             mocks = new Dictionary<Type, object>();
         }
@@ -24,15 +21,10 @@ namespace UnityAutoMoq
         {
             var type = context.OriginalBuildKey.Type;
 
-            if (type.IsInterface && TypeIsNotRegistered(type))
+            if (type.IsInterface)
             {
                 context.Existing = GetOrCreateMock(type);
             }
-        }
-
-        private bool TypeIsNotRegistered(Type type)
-        {
-            return !registeredTypes.Any(x => x.Equals(type));
         }
 
         private object GetOrCreateMock(Type t)
