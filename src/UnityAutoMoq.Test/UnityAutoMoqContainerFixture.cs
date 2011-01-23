@@ -1,7 +1,6 @@
 using System;
 using NUnit.Framework;
 using Moq;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace UnityAutoMoq.Test
 {
@@ -21,7 +20,7 @@ namespace UnityAutoMoq.Test
         {
             var mocked = container.Resolve<IService>();
 
-            Assert.That(mocked, Is.Not.Null);
+            mocked.ShouldNotBeNull();
         }
 
         [Test]
@@ -29,7 +28,7 @@ namespace UnityAutoMoq.Test
         {
             Mock<IService> mock = container.GetMock<IService>();
 
-            Assert.That(mock, Is.Not.Null);
+            mock.ShouldNotBeNull();
         }
 
         [Test]
@@ -37,8 +36,8 @@ namespace UnityAutoMoq.Test
         {
             Mock<IService> mock = container.GetMock<IService>();
             var mocked = container.Resolve<IService>();
-            
-            Assert.That(mock.Object, Is.SameAs(mocked));
+
+            mock.Object.ShouldBeSameAs(mocked);
         }
 
         [Test]
@@ -47,7 +46,7 @@ namespace UnityAutoMoq.Test
             var mocked = container.Resolve<IService>();
             Mock<IService> mock = container.GetMock<IService>();
 
-            Assert.That(mock.Object, Is.SameAs(mocked));
+            mock.Object.ShouldBeSameAs(mocked);
         }
 
         [Test]
@@ -56,7 +55,7 @@ namespace UnityAutoMoq.Test
             container = new UnityAutoMoqContainer();
             var mocked = container.GetMock<IService>();
 
-            Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Mock));
+            mocked.DefaultValue.ShouldEqual(DefaultValue.Mock);
         }
 
         [Test]
@@ -65,7 +64,7 @@ namespace UnityAutoMoq.Test
             container = new UnityAutoMoqContainer(DefaultValue.Empty);
             var mocked = container.GetMock<IService>();
 
-            Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Empty));
+            mocked.DefaultValue.ShouldEqual(DefaultValue.Empty);
         }
 
         [Test]
@@ -74,7 +73,7 @@ namespace UnityAutoMoq.Test
             container = new UnityAutoMoqContainer{DefaultValue = DefaultValue.Empty};
             var mocked = container.GetMock<IService>();
 
-            Assert.That(mocked.DefaultValue, Is.EqualTo(DefaultValue.Empty));
+            mocked.DefaultValue.ShouldEqual(DefaultValue.Empty);
         }
 
         [Test]
@@ -82,8 +81,8 @@ namespace UnityAutoMoq.Test
         {
             var concrete = container.Resolve<Service>();
 
-            Assert.That(concrete, Is.Not.Null);
-            Assert.That(concrete.AnotherService, Is.Not.Null);
+            concrete.ShouldNotBeNull();
+            concrete.AnotherService.ShouldNotBeNull();
         }
 
         [Test]
@@ -92,7 +91,7 @@ namespace UnityAutoMoq.Test
             var concrete = container.Resolve<Service>();
             Mock<IAnotherService> mock = container.GetMock<IAnotherService>();
 
-            Assert.That(concrete.AnotherService, Is.SameAs(mock.Object));
+            concrete.AnotherService.ShouldBeSameAs(mock.Object);
         }
 
         [Test]
