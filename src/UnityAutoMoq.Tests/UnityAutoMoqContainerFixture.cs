@@ -116,7 +116,7 @@ namespace UnityAutoMoq.Tests
         {
             var service = container.Resolve<LazyService>();
 
-            Assert.That(service.ServiceFunc(), Is.InstanceOfType(typeof(IService)));
+            Assert.That(service.ServiceFunc(), Is.InstanceOf(typeof(IService)));
         }
     }
 }
