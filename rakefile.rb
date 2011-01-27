@@ -2,7 +2,7 @@ require 'rubygems'
 require 'albacore'
 require 'rake/clean'
 
-VERSION = "2.0.0.0"
+VERSION = "2.0.1.0"
 OUTPUT = "build"
 CONFIGURATION = 'Release'
 ASSEMBLY_INFO = 'src/UnityAutoMoq/Properties/AssemblyInfo.cs'
