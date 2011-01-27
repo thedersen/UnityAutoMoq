@@ -1,6 +1,6 @@
 using System;
 
-namespace UnityAutoMoq.Test
+namespace UnityAutoMoq.Tests
 {
     public class LazyService
     {

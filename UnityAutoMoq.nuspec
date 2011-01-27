@@ -16,6 +16,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\UnityAutoMoq.dll" target="lib" />
+    <file src="build\binaries\UnityAutoMoq.dll" target="lib" />
   </files>
 </package>

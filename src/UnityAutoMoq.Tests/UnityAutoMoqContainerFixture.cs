@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using Moq;
 
-namespace UnityAutoMoq.Test
+namespace UnityAutoMoq.Tests
 {
     [TestFixture]
     public class UnityAutoMoqContainerFixture

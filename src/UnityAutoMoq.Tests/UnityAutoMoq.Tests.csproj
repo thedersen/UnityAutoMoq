@@ -8,8 +8,8 @@
     <ProjectGuid>{72D98508-6E3B-4ADF-95F1-B03A0CA81F87}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnityAutoMoq.Test</RootNamespace>
-    <AssemblyName>UnityAutoMoq.Test</AssemblyName>
+    <RootNamespace>UnityAutoMoq.Tests</RootNamespace>
+    <AssemblyName>UnityAutoMoq.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

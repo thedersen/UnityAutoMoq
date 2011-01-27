@@ -1,23 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityAutoMoq.Test", "UnityAutoMoq.Test\UnityAutoMoq.Test.csproj", "{72D98508-6E3B-4ADF-95F1-B03A0CA81F87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityAutoMoq.Tests", "UnityAutoMoq.Tests\UnityAutoMoq.Tests.csproj", "{72D98508-6E3B-4ADF-95F1-B03A0CA81F87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityAutoMoq", "UnityAutoMoq\UnityAutoMoq.csproj", "{3FF285B9-7D50-4192-BE06-C3C64EF484FD}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tpe-win7:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = UnityAutoMoq.Test\\UnityAutoMoq.Test.csproj
-		SccProjectName1 = UnityAutoMoq.Test
-		SccLocalPath1 = UnityAutoMoq.Test
-		SccProjectUniqueName2 = UnityAutoMoq\\UnityAutoMoq.csproj
-		SccProjectName2 = UnityAutoMoq
-		SccLocalPath2 = UnityAutoMoq
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
