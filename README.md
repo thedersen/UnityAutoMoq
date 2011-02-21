@@ -4,25 +4,26 @@ Automocking container using Microsoft Unity and Moq.
 
 	// Creating a new instance of the auto mock container
 	var container = new UnityAutoMoqContainer();
-
+	
 	// Resolving a concrete class automatically creates
 	// mocks for the class dependencies and injects them
-	// before returning an instance of the class.
+	// before returning an instance of the class
 	Service service = container.Resolve<Service>();
-
-	// By calling Resolve on a interface, you get
-	// a mocked version of that interface
+	
+	// Resolving an interface, returns a mocked
+	// instance of that interface
 	IService mocked = container.Resolve<IService>();
-
-	// By calling GetMock on a interface, you get the 
-	// mock on which you can do setup etc.
+	
+	// GetMock returns the mock on which you can do setup etc.
 	Mock<IService> mock = container.GetMock<IService>();
-
-	// Sometimes you need to cast your interface to some other type.
-	// This is how that is done.
+	
+	// Sometimes you need to cast your interface to some other type
+	// This is how that is done
 	container.ConfigureMock<IService>().As<IDisposable>();
 	Mock<IDisposable> disposable = container.GetMock<IService>().As<IDisposable>();
-
+	
+License
+-------
 The MIT License
 
 Copyright (c) 2011 Thomas Pedersen
