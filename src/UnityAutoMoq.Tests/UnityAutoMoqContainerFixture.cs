@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using NUnit.Framework;
 using Moq;
 
@@ -117,6 +118,23 @@ namespace UnityAutoMoq.Tests
             var service = container.Resolve<LazyService>();
 
             Assert.That(service.ServiceFunc(), Is.InstanceOf(typeof(IService)));
+        }
+
+        [Test]
+        public void Can_mock_abstract_classes()
+        {
+            var mock = container.GetMock<HttpContextBase>();
+
+            Assert.That(mock, Is.InstanceOf(typeof (Mock<HttpContextBase>)));
+        }
+
+        [Test]
+        public void Can_inject_mocked_abstract_class()
+        {
+            var concrete = container.Resolve<ServiceWithAbstractDependency>();
+            var mock = container.GetMock<HttpContextBase>();
+
+            concrete.HttpContextBase.ShouldBeSameAs(mock.Object);
         }
     }
 }

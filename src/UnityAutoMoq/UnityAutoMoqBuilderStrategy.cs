@@ -21,9 +21,10 @@ namespace UnityAutoMoq
         {
             var type = context.OriginalBuildKey.Type;
 
-            if (type.IsInterface)
+            if (type.IsInterface || type.IsAbstract)
             {
                 context.Existing = GetOrCreateMock(type);
+                context.BuildComplete = true;
             }
         }
 
