@@ -2,7 +2,7 @@ require 'rubygems'
 require 'albacore'
 require 'rake/clean'
 
-VERSION = "2.0.1.0"
+VERSION = "2.1.0"
 OUTPUT = "build"
 CONFIGURATION = 'Release'
 ASSEMBLY_INFO = 'src/UnityAutoMoq/Properties/AssemblyInfo.cs'
@@ -23,6 +23,7 @@ task :test => [:nunit]
 CLEAN.include(OUTPUT)
 CLEAN.include(FileList["src/**/#{CONFIGURATION}"])
 CLEAN.include("TestResult.xml")
+CLEAN.include("*.nuspec")
 
 desc "Update assemblyinfo file for the build"
 assemblyinfo :version => [:clean] do |asm|
@@ -59,8 +60,34 @@ nunit :nunit => [:compile] do |nunit|
 end	
 
 desc "Creates a NuGet packaged based on the UnityAutoMoq.nuspec file"
-exec :package => [:publish] do |cmd|
+nugetpack :package => [:publish, :nuspec] do |nuget|
 	Dir.mkdir("#{OUTPUT}/nuget")
-	cmd.command = "tools/nuget.exe"
-	cmd.parameters "pack UnityAutoMoq.nuspec -o #{OUTPUT}/nuget"
+	
+    nuget.command = "tools/nuget.exe"
+    nuget.nuspec = "UnityAutoMoq.nuspec"
+	nuget.base_folder = "#{OUTPUT}/binaries/"
+    nuget.output = "#{OUTPUT}/nuget/"
+	nuget.symbols = false
+end
+
+desc "Create the nuget package specification"
+nuspec do |nuspec|
+    nuspec.id ="UnityAutoMoq"
+    nuspec.version = VERSION
+    nuspec.authors = "Thomas Pedersen (thedersen)"
+    nuspec.description = "Automocking container using Microsoft Unity and Moq."
+    nuspec.language = "en-US"
+    nuspec.projectUrl = "https://github.com/thedersen/UnityAutoMoq"
+	nuspec.tags = "unity moq automocking test unittest"
+	nuspec.file "UnityAutoMoq.dll", "lib/net35"
+    nuspec.dependency "Unity", "2.0"
+    nuspec.dependency "Moq", "3.0"
+    nuspec.output_file = "UnityAutoMoq.nuspec"
+end
+
+desc "Pushes and publishes the NuGet package to nuget.org"
+nugetpush :release => [:package] do |nuget|
+    nuget.command = "tools/nuget.exe"
+    nuget.package = "#{OUTPUT}/nuget/UnityAutoMoq.#{VERSION}.nupkg"
+    nuget.create_only = false
 end
