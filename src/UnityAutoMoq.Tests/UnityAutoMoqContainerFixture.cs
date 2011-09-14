@@ -118,7 +118,7 @@ namespace UnityAutoMoq.Tests
         {
             var service = container.Resolve<LazyService>();
 
-            Assert.That(service.ServiceFunc(), Is.InstanceOf(typeof(IService)));
+            Assert.That(service.ServiceFunc(), Is.InstanceOf<IService>());
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace UnityAutoMoq.Tests
         {
             var mock = container.GetMock<HttpContextBase>();
 
-            Assert.That(mock, Is.InstanceOf(typeof (Mock<HttpContextBase>)));
+            mock.ShouldBeOfType<Mock<HttpContextBase>>();
         }
 
         [Test]
@@ -143,7 +143,8 @@ namespace UnityAutoMoq.Tests
         {
             container.RegisterType<IAnotherService, AnotherService>();
             var real = container.Resolve<IAnotherService>();
-            Assert.IsInstanceOf<AnotherService>(real);
+
+            real.ShouldBeOfType<AnotherService>();
         }
     }
 }
