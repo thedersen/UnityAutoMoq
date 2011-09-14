@@ -5,5 +5,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("UnityAutoMoq")]
 [assembly: AssemblyProduct("UnityAutoMoq")]
 [assembly: AssemblyCopyright("Copyright (C) Thomas Pedersen")]
-[assembly: AssemblyVersion("2.1.0")]
+[assembly: AssemblyVersion("2.1.1")]
 
