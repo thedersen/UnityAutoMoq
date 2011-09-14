@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using NUnit.Framework;
 using Moq;
+using Microsoft.Practices.Unity;
 
 namespace UnityAutoMoq.Tests
 {
@@ -135,6 +136,14 @@ namespace UnityAutoMoq.Tests
             var mock = container.GetMock<HttpContextBase>();
 
             concrete.HttpContextBase.ShouldBeSameAs(mock.Object);
+        }
+
+        [Test]
+        public void Can_get_registered_implementation()
+        {
+            container.RegisterType<IAnotherService, AnotherService>();
+            var real = container.Resolve<IAnotherService>();
+            Assert.IsInstanceOf<AnotherService>(real);
         }
     }
 }

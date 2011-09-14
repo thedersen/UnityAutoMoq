@@ -92,6 +92,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnotherService.cs" />
     <Compile Include="CoreTdd.cs" />
     <Compile Include="IAnotherService.cs" />
     <Compile Include="IService.cs" />

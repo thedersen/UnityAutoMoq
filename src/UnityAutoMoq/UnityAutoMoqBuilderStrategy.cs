@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.ObjectBuilder2;
 using Moq;
@@ -21,6 +22,9 @@ namespace UnityAutoMoq
         {
             var type = context.OriginalBuildKey.Type;
 
+            if (autoMoqContainer.Registrations.Any(r => r.RegisteredType == type))
+                return;
+            
             if (type.IsInterface || type.IsAbstract)
             {
                 context.Existing = GetOrCreateMock(type);
