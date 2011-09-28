@@ -3,6 +3,9 @@ using Microsoft.Practices.Unity.ObjectBuilder;
 
 namespace UnityAutoMoq
 {
+    /// <summary>
+    /// Provide extensions for Unity Auto Moq
+    /// </summary>
     public class UnityAutoMoqExtension : UnityContainerExtension
     {
         private readonly UnityAutoMoqContainer autoMoqContainer;
