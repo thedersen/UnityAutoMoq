@@ -1,47 +1,49 @@
-UnityAutoMoq
-============
+# UnityAutoMoq v2.1.1
+
 Automocking container using Microsoft Unity and Moq.
 
-	// Creating a new instance of the auto mock container
+## Download and install
+
+UnityAutoMoq is available for download on [NuGet](http://nuget.org/packages/UnityAutoMoq).
+
+To install it run the following command in the [NuGet Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
+
+	PM> Install-Package UnityAutoMoq
+   
+This will download all the binaries, and add necessary references to your project.
+
+## Usage
+
+### Creating an instance of the container
+
+Creating the auto mock container is as simple as initializing a new instance of the UnityAutoMoqContainer class. This inherits from the UnityContainer, so all features will be available.
+
 	var container = new UnityAutoMoqContainer();
-	
-	// Resolving a concrete class automatically creates
-	// mocks for the class dependencies and injects them
-	// before returning an instance of the class
+
+### Resolving instances
+
+Resolving a concrete class automatically creates mocks for the class dependencies and injects them before returning an instance of the class.
+
 	Service service = container.Resolve<Service>();
 	
-	// Resolving an interface, returns a mocked
-	// instance of that interface
+Resolving an interface returns a mocked instance of that interface.
+
 	IService mocked = container.Resolve<IService>();
 	
-	// GetMock returns the mock on which you can do setup etc.
+### Getting the Mock
+
+If you need access to the actual mock, calling GetMock<T> returns the mock on which you can do custom setup etc.
+
 	Mock<IService> mock = container.GetMock<IService>();
-	
-	// Sometimes you need to cast your interface to some other type
-	// This is how that is done
+
+### Implementing multiple interfaces
+
+Sometimes you need to cast your mocked interface to some other type, e.g. IDisposable.  
+This is done by
+
 	container.ConfigureMock<IService>().As<IDisposable>();
 	Mock<IDisposable> disposable = container.GetMock<IService>().As<IDisposable>();
 	
-License
--------
-The MIT License
+## License
 
-Copyright (c) 2011 Thomas Pedersen
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+http://thedersen.mit-license.org/
